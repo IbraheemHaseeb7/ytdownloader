@@ -1,15 +1,10 @@
-const express = require("express");
-const app = express();
-const PORT = 3000;
+var express = require("express");
+var app = express();
 const youtubedl = require("youtube-dl-exec");
-const cors = require("cors");
 const { getInfo } = require("ytdl-core");
 
-// TO HANDLE JSON RESPONSE AND CORS ERROR
-app.use(express.json(), cors());
-
 // API ROUTE THAT HANDLES THE VIDEO OR AUDIO DOWNLOAD REQUEST
-app.post("/download", async (req, res) => {
+app.get("/download", async (req, res, next) => {
   let title = "";
 
   // GETS THE VIDEO TITLE USING YTDL-CORE LIB
@@ -34,7 +29,4 @@ app.post("/download", async (req, res) => {
     });
 });
 
-// LISTENS THE SERVER ON SPECIFIED PORT
-app.listen(PORT, () => {
-  console.log("SERVER IS LIVE ON " + PORT);
-});
+module.exports = app;
